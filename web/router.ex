@@ -16,6 +16,7 @@ defmodule CmsServer.Router do
   scope "/api", CmsServer do
     pipe_through :api
     resources "/consent-documents", ConsentDocumentController
+    resources "/consent-sections", ConsentSectionController
   end
 
   scope "/", CmsServer do

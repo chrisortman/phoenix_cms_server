@@ -7,8 +7,10 @@ defmodule CmsServer.ConsentDocumentController do
   plug :scrub_params, "data" when action in [:create, :update]
 
   def index(conn, _params) do
-    consent_documents = Repo.all(ConsentDocument)
-    render(conn, "index.json-api", data: consent_documents)
+    consent_documents = Repo.all from c in ConsentDocument,
+                                 preload: [:sections]
+
+    render(conn, data: consent_documents)
   end
 
   def create(conn, %{"data" => data = %{"type" => "consent_document", "attributes" => _consent_document_params}}) do

@@ -4,6 +4,7 @@ defmodule CmsServer.ConsentDocument do
   schema "consent_documents" do
     field :version, :string
     field :lastPublished, Ecto.DateTime
+    has_many :sections, CmsServer.ConsentSection, foreign_key: :document_id
 
     timestamps()
   end

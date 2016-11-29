@@ -1,10 +1,10 @@
-defmodule CmsServer.ConsentDocumentControllerTest do
+defmodule CmsServer.ConsentSectionControllerTest do
   use CmsServer.ConnCase
 
-  alias CmsServer.ConsentDocument
+  alias CmsServer.ConsentSection
   alias CmsServer.Repo
 
-  @valid_attrs %{lastPublished: %{day: 17, hour: 14, min: 0, month: 4, sec: 0, year: 2010}, version: "some content"}
+  @valid_attrs %{learnMoreButtonTitle: "some content", researchKitType: "some content", summary: "some content", title: "some content"}
   @invalid_attrs %{}
 
   setup do
@@ -20,45 +20,47 @@ defmodule CmsServer.ConsentDocumentControllerTest do
   end
 
   test "lists all entries on index", %{conn: conn} do
-    conn = get conn, consent_document_path(conn, :index)
+    conn = get conn, consent_section_path(conn, :index)
     assert json_response(conn, 200)["data"] == []
   end
 
   test "shows chosen resource", %{conn: conn} do
-    consent_document = Repo.insert! %ConsentDocument{}
-    conn = get conn, consent_document_path(conn, :show, consent_document)
+    consent_section = Repo.insert! %ConsentSection{}
+    conn = get conn, consent_section_path(conn, :show, consent_section)
     data = json_response(conn, 200)["data"]
-    assert data["id"] == "#{consent_document.id}"
-    assert data["type"] == "consent-document"
-    assert data["attributes"]["version"] == consent_document.version
-    assert data["attributes"]["lastPublished"] == consent_document.lastPublished
+    assert data["id"] == "#{consent_section.id}"
+    assert data["type"] == "consent-section"
+    assert data["attributes"]["title"] == consent_section.title
+    assert data["attributes"]["summary"] == consent_section.summary
+    assert data["attributes"]["researchKitType"] == consent_section.researchKitType
+    assert data["attributes"]["learnMoreButtonTitle"] == consent_section.learnMoreButtonTitle
   end
 
   test "does not show resource and instead throw error when id is nonexistent", %{conn: conn} do
     assert_error_sent 404, fn ->
-      get conn, consent_document_path(conn, :show, -1)
+      get conn, consent_section_path(conn, :show, -1)
     end
   end
 
   test "creates and renders resource when data is valid", %{conn: conn} do
-    conn = post conn, consent_document_path(conn, :create), %{
+    conn = post conn, consent_section_path(conn, :create), %{
       "meta" => %{},
       "data" => %{
-        "type" => "consent_document",
+        "type" => "consent_section",
         "attributes" => @valid_attrs,
         "relationships" => relationships
       }
     }
 
     assert json_response(conn, 201)["data"]["id"]
-    assert Repo.get_by(ConsentDocument, @valid_attrs)
+    assert Repo.get_by(ConsentSection, @valid_attrs)
   end
 
   test "does not create resource and renders errors when data is invalid", %{conn: conn} do
-    conn = post conn, consent_document_path(conn, :create), %{
+    conn = post conn, consent_section_path(conn, :create), %{
       "meta" => %{},
       "data" => %{
-        "type" => "consent_document",
+        "type" => "consent_section",
         "attributes" => @invalid_attrs,
         "relationships" => relationships
       }
@@ -68,28 +70,28 @@ defmodule CmsServer.ConsentDocumentControllerTest do
   end
 
   test "updates and renders chosen resource when data is valid", %{conn: conn} do
-    consent_document = Repo.insert! %ConsentDocument{}
-    conn = put conn, consent_document_path(conn, :update, consent_document), %{
+    consent_section = Repo.insert! %ConsentSection{}
+    conn = put conn, consent_section_path(conn, :update, consent_section), %{
       "meta" => %{},
       "data" => %{
-        "type" => "consent_document",
-        "id" => consent_document.id,
+        "type" => "consent_section",
+        "id" => consent_section.id,
         "attributes" => @valid_attrs,
         "relationships" => relationships
       }
     }
 
     assert json_response(conn, 200)["data"]["id"]
-    assert Repo.get_by(ConsentDocument, @valid_attrs)
+    assert Repo.get_by(ConsentSection, @valid_attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    consent_document = Repo.insert! %ConsentDocument{}
-    conn = put conn, consent_document_path(conn, :update, consent_document), %{
+    consent_section = Repo.insert! %ConsentSection{}
+    conn = put conn, consent_section_path(conn, :update, consent_section), %{
       "meta" => %{},
       "data" => %{
-        "type" => "consent_document",
-        "id" => consent_document.id,
+        "type" => "consent_section",
+        "id" => consent_section.id,
         "attributes" => @invalid_attrs,
         "relationships" => relationships
       }
@@ -99,10 +101,10 @@ defmodule CmsServer.ConsentDocumentControllerTest do
   end
 
   test "deletes chosen resource", %{conn: conn} do
-    consent_document = Repo.insert! %ConsentDocument{}
-    conn = delete conn, consent_document_path(conn, :delete, consent_document)
+    consent_section = Repo.insert! %ConsentSection{}
+    conn = delete conn, consent_section_path(conn, :delete, consent_section)
     assert response(conn, 204)
-    refute Repo.get(ConsentDocument, consent_document.id)
+    refute Repo.get(ConsentSection, consent_section.id)
   end
 
 end
