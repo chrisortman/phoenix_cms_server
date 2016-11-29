@@ -9,3 +9,14 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias CmsServer.ConsentDocument
+alias CmsServer.Repo
+
+[
+  %ConsentDocument{
+    version: "V9",
+    lastPublished: Ecto.DateTime.utc
+  }
+
+] |> Enum.each(&Repo.insert!(&1))

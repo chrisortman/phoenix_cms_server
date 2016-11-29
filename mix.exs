@@ -38,7 +38,8 @@ defmodule CmsServer.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:ja_serializer, "~> 0.11.1"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:cors_plug, "~> 1.1"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

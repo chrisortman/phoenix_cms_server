@@ -38,5 +38,6 @@ defmodule CmsServer.Endpoint do
     key: "_cms_server_key",
     signing_salt: "UVTQhiTE"
 
+  plug CORSPlug
   plug CmsServer.Router
 end

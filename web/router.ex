@@ -13,8 +13,9 @@ defmodule CmsServer.Router do
     plug :accepts, ["json-api"]
   end
 
-  scope "/api", App do
+  scope "/api", CmsServer do
     pipe_through :api
+    resources "/consent-documents", ConsentDocumentController
   end
 
   scope "/", CmsServer do
