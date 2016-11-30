@@ -18,7 +18,7 @@ defmodule CmsServer.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {CmsServer, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
+     applications: [:couchdb_connector, :phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
                     :phoenix_ecto, :postgrex]]
   end
 
@@ -39,7 +39,8 @@ defmodule CmsServer.Mixfile do
      {:gettext, "~> 0.11"},
      {:ja_serializer, "~> 0.11.1"},
      {:cowboy, "~> 1.0"},
-     {:cors_plug, "~> 1.1"}]
+     {:cors_plug, "~> 1.1"},
+     {:couchdb_connector, "~> 0.4.1"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
