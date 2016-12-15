@@ -40,7 +40,10 @@ defmodule CmsServer.Mixfile do
      {:ja_serializer, "~> 0.11.1"},
      {:cowboy, "~> 1.0"},
      {:cors_plug, "~> 1.1"},
-     {:couchdb_connector, "~> 0.4.1"}]
+     {:couchdb_connector, "~> 0.4.1"},
+     # Overrides hackney version because couchbeam has a fixed 1.6.2 dependency
+     {:hackney, "~> 1.6", override: true},
+     {:couchex, "~> 0.7.0"},]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
