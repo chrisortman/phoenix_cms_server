@@ -18,7 +18,7 @@ defmodule CmsServer.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {CmsServer, []},
-     applications: [:couchdb_connector, :phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
+     applications: [:couchdb_connector, :couchex, :phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
                     :phoenix_ecto, :postgrex]]
   end
 
