@@ -24,6 +24,7 @@ defmodule CmsServer.Router do
 
     get "/", PageController, :index
     get "/users", UsersController, :index
+    post "/users", UsersController, :create
   end
 
   # Other scopes may use custom stacks.

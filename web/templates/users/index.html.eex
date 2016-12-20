@@ -1,1 +1,15 @@
-Hello from users controller
+There are <%= @user_count %> user databases
+
+<ul>
+  <%= for name <- @names do %>
+    <li><%= name %></li>
+  <% end %>
+</ul>
+
+<%= form_for @conn, users_path(@conn, :create), [as: :create_user], fn f -> %>
+  <div>
+    <label for="username">Username</label>
+    <%= text_input f, :username %>
+  </div>
+  <%= submit "Create" %>
+<% end %>
